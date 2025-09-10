@@ -35,6 +35,6 @@
                             emqx-source
                             (WatermarkStrategy/noWatermarks)
                             "emqx")
-        source (.returns source String)
+        #_#_source (.returns source String)
         _sink (.print source)]
    (.execute env)))
