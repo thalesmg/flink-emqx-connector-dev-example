@@ -4,7 +4,7 @@
 (def class-dir "target/classes")
 (def basis (b/create-basis {:project "deps.edn"}))
 
-(defn uber-file
+(defn jar-file
   [lib]
   (format "target/%s.jar" (name lib)))
 
@@ -13,8 +13,8 @@
   (b/delete {:path "target"}))
 
 (defn compile-java
-  [{:keys [:lib]}]
-  (b/javac {:src-dirs [(str lib "/java")]
+  [_]
+  (b/javac {:src-dirs ["java"]
             :class-dir class-dir
             :basis basis
             :javac-opts ["--release" "17"]}))
@@ -29,7 +29,7 @@
     (b/compile-clj {:basis basis
                     :src-dirs src-dirs
                     :class-dir class-dir})
-    (b/uber {:class-dir class-dir
-             :uber-file (uber-file lib)
-             :basis basis
-             :main (symbol lib)})))
+    (b/jar {:class-dir class-dir
+            :jar-file (jar-file lib)
+            :basis basis
+            :main (symbol lib)})))
