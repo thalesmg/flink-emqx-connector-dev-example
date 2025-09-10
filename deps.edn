@@ -1,0 +1,17 @@
+{:deps {
+        com.emqx/flink-emqx-connector {:local/root "../flink-emqx-connector/target/flink-emqx-connector-1.0-SNAPSHOT.jar"}
+        ;; com.emqx/flink-emqx-connector {:local/root "../flink-emqx-connector"}
+
+        com.taoensso/telemere {:mvn/version "1.1.0"}
+        com.taoensso/telemere-slf4j {:mvn/version "1.1.0"}
+
+        org.apache.flink/flink-core {:mvn/version "2.1.0"}
+        org.apache.flink/flink-table-runtime {:mvn/version "2.1.0"}
+        }
+
+ :aliases
+ {:build {:deps {io.github.clojure/tools.build {:mvn/version "0.10.10"}}
+          :ns-default build}
+  :ex1 {:extra-paths ["ex1/src"]}
+  }
+ }

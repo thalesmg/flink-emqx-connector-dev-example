@@ -1,0 +1,32 @@
+services:
+  emqx:
+    networks:
+      flink_test:
+        aliases:
+          - deleteme1.emqx.net
+    image: emqx/emqx-enterprise:5.10.0
+    hostname: deleteme1.emqx.net
+    environment:
+      EMQX_DASHBOARD__DEFAULT_PASSWORD: admin
+      EMQX_NODE__NAME: emqx@deleteme1.emqx.net
+  jobmanager:
+    networks:
+      - flink_test
+    ports:
+      - 8081:8081
+    environment:
+      FLINK_PROPERTIES: "jobmanager.rpc.address: jobmanager"
+    image: flink:latest
+    command: ["jobmanager"]
+  taskmanager1:
+    networks:
+      - flink_test
+    environment:
+      FLINK_PROPERTIES: "jobmanager.rpc.address: jobmanager"
+    image: flink:latest
+    command: ["taskmanager"]
+
+networks:
+  flink_test:
+    driver: bridge
+    name: flink_test

@@ -1,0 +1,4 @@
+[source,shell]
+----
+clj -T:build jar :lib ex1
+----
