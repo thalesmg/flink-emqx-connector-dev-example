@@ -29,7 +29,7 @@
     (b/compile-clj {:basis basis
                     :src-dirs src-dirs
                     :class-dir class-dir})
-    (b/jar {:class-dir class-dir
-            :jar-file (jar-file lib)
-            :basis basis
-            :main (symbol lib)})))
+    (b/uber {:class-dir class-dir
+             :uber-file (jar-file lib)
+             :basis basis
+             :main (symbol lib)})))
