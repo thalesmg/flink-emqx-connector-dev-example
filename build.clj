@@ -1,8 +1,19 @@
 (ns build
-  (:require [clojure.tools.build.api :as b]))
+  (:require
+   ;; [clojure.pprint :as pp]
+   [clojure.tools.build.api :as b]))
 
 (def class-dir "target/classes")
 (def basis (b/create-basis {:project "deps.edn"}))
+(def jar-basis
+  (b/create-basis
+   {:project nil
+    :extra {:deps {'com.emqx/flink-emqx-connector
+                   {:local/root "../flink-emqx-connector/target/flink-emqx-connector-1.0-SNAPSHOT.jar"}
+
+                   'org.clojure/clojure {:mvn/version "1.12.1"}}}}))
+
+;; (pp/pprint jar-basis)
 
 (defn jar-file
   [lib]
@@ -19,6 +30,10 @@
             :basis basis
             :javac-opts ["--release" "17"]}))
 
+(defn inject-clojure
+  [_]
+  )
+
 (defn jar
   [{:keys [:lib] :as params}]
   (let [src-dirs [(str lib "/src")]]
@@ -31,5 +46,5 @@
                     :class-dir class-dir})
     (b/uber {:class-dir class-dir
              :uber-file (jar-file lib)
-             :basis basis
+             :basis jar-basis
              :main (symbol lib)})))
