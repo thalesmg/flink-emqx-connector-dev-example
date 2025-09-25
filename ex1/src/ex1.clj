@@ -24,13 +24,15 @@
 (defn -main
   [& _args]
   (let [env (StreamExecutionEnvironment/getExecutionEnvironment)
-        broker-uri "tcp://deleteme1.emqx.net:1883"
+        broker-host "deleteme1.emqx.net"
+        broker-port 1883
         clientid "cid"
         group-name "gname"
         topic-filter "t/#"
         qos 1
         deserializer (StringDeserializer.)
-        emqx-source (EMQXSource. broker-uri clientid group-name topic-filter qos deserializer)
+        emqx-source (EMQXSource. broker-host broker-port clientid
+                                 group-name topic-filter qos deserializer)
         source (.fromSource env
                             emqx-source
                             (WatermarkStrategy/noWatermarks)

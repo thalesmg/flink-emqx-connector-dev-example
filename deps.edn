@@ -14,5 +14,9 @@
           :ns-default build}
   :ex1 {:extra-paths ["ex1/src" "target/classes"]}
   :ex2 {:extra-paths ["ex2/src" "target/classes"]}
+  :repl {:extra-deps {
+                      #_#_org.apache.flink/flink-clients {:mvn/version "2.1.0"}
+                      org.apache.flink/flink-table-planner_2.12 {:mvn/version "2.1.0"}
+                      }}
   }
  }
